@@ -11,13 +11,13 @@ class ChatLoaderIndicator extends StatelessWidget {
     return switch (type) {
       ChatLoaderIndicatorStateType.empty => Container(
           height: 32,
-          child: Center(
-            child: Text('Все загружено'),
+          child: const Center(
+            child: const Text('Все загружено'),
           ),
         ),
       ChatLoaderIndicatorStateType.loading => Container(
           height: 32,
-          child: Center(
+          child: const Center(
             child: SizedBox(
               width: 16,
               height: 16,
@@ -27,7 +27,7 @@ class ChatLoaderIndicator extends StatelessWidget {
             ),
           ),
         ),
-      ChatLoaderIndicatorStateType.idle => SizedBox(
+      ChatLoaderIndicatorStateType.idle => const SizedBox(
           height: 0,
           width: 0,
         ),
