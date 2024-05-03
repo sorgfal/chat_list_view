@@ -12,6 +12,7 @@ class ChatController extends ChangeNotifier {
   List<ChatBubble> _currentBubbles = [];
   List<ChatEntity> _newMessagesBuffer = [];
   List<ChatEntity> _entities = [];
+  bool inScroll = false;
 
   ChatController({required this.context, required this.onLoadMore});
 
@@ -25,8 +26,6 @@ class ChatController extends ChangeNotifier {
     final r = ChatEntity.random();
     onNewMessage(r);
   }
-
-  bool inScroll = false;
 
   void _cleanBuffer() {
     while (_newMessagesBuffer.isNotEmpty) {
