@@ -15,8 +15,24 @@ class ChatBubble extends LeafRenderObjectWidget {
 }
 
 class ChatMessageBubbleRenderObject extends RenderBox {
-  final ChatEntity$Message badge;
-  ChatMessageBubbleRenderObject(this.badge);
+  late ChatEntity$Message _badge;
+  ChatMessageBubbleRenderObject(ChatEntity$Message badge) {
+    this.badge = badge;
+  }
+
+  set text(String text) {
+    textPainter = TextPainter(
+        text: TextSpan(
+            text: text,
+            style: const TextStyle(color: Colors.black, fontSize: 15)))
+      ..textDirection = TextDirection.ltr;
+  }
+
+  set badge(ChatEntity$Message message) {
+    _badge = message;
+
+    text = '[${_badge.id}] ${_badge.message}';
+  }
 
   Paint myMessagePainter = Paint()
     ..color = Colors.blueGrey.shade100
@@ -36,7 +52,7 @@ class ChatMessageBubbleRenderObject extends RenderBox {
   @override
   void paint(PaintingContext context, Offset offset) {
     Offset baseOffset = const Offset(8, 0);
-    if (badge.fromMe) {
+    if (_badge.fromMe) {
       baseOffset = const Offset(48, 0);
     }
 
@@ -44,7 +60,7 @@ class ChatMessageBubbleRenderObject extends RenderBox {
         RRect.fromRectAndRadius(
             Rect.fromLTWH(baseOffset.dx, 0, size.width - 56, size.height - 8),
             const Radius.circular(8)),
-        badge.fromMe ? myMessagePainter : otherMessagePainter);
+        _badge.fromMe ? myMessagePainter : otherMessagePainter);
 
     textPainter.paint(
       context.canvas,
