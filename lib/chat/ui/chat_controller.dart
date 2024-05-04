@@ -50,6 +50,12 @@ class ChatController extends ChangeNotifier {
   Size get screenSize => _screenSize ??= MediaQuery.sizeOf(context);
 
   void _onNewMessageAddition(ChatEntity entity) {
+    final textHeight = ChatBubble.calcTextHeight(
+        entity,
+        BoxConstraints(
+            maxWidth: screenSize.width, maxHeight: screenSize.height));
+
+    print(textHeight);
     final w = ChatBubble(
       key: ValueKey(entity.id),
       chatEntity: entity,

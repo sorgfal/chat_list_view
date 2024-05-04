@@ -12,6 +12,20 @@ class ChatBubble extends LeafRenderObjectWidget {
       ChatEntity$DateBadge date => ChatDateBubbleRenderObject(date)
     };
   }
+
+  /// Определение высоты текста
+  static Size calcTextHeight(
+      ChatEntity chatEntity, BoxConstraints constraints) {
+    final ts = TextSpan(
+        text: switch (chatEntity) {
+      ChatEntity$Message message => message.message,
+      ChatEntity$DateBadge date => date.date.toIso8601String()
+    });
+    final tp = TextPainter(text: ts, textDirection: TextDirection.ltr);
+
+    tp.layout(maxWidth: constraints.maxWidth);
+    return tp.size;
+  }
 }
 
 class ChatMessageBubbleRenderObject extends RenderBox {
